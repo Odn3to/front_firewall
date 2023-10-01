@@ -1,0 +1,30 @@
+/* MENU */
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #004466;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .menu img{
+    width: 200px;
+  }
+  
+  .menu a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    transition: background-color 0.3s;
+  }
+  
+  .menu a:hover {
+    background-color: #555;
+  }

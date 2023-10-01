@@ -1,0 +1,50 @@
+.right{
+  position: fixed;
+  right: 0px;
+  left: 205px;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  background-color: #f1f3f7;
+  text-align: center;
+}
+
+h1 {
+  display: inline-block;
+  align-self: center;
+  font-size: 2.5em;
+  text-align: center;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.content {
+  margin-left: 220px; /* Espaço para o menu */
+  padding: 20px;
+}
+
+/* Estilos para o balão de alerta */
+.alert-balloon {
+  margin-left: 80px;
+  display: inline-block;
+  align-self: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* Estilos para o balão de alerta verde */
+.alert-green {
+  background-color: #4CAF50; /* Verde */
+  color: white;
+}
+
+/* Estilos para o balão de alerta vermelho */
+.alert-red {
+  background-color: #f44336; /* Vermelho */
+  color: white;
+}

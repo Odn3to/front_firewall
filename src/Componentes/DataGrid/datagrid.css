@@ -1,0 +1,128 @@
+.data-grid {
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-family: Arial, sans-serif;
+  }
+  
+  .filter-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .filter-input {
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  .filter-button-search {
+    background-color: #0077B3;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .filter-button {
+    background-color: #0077B3;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .filter-button:hover {
+    background-color: #003355;
+  }
+  
+  .filter-button:active {
+    background-color: #002244;
+  }
+  
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .data-table th,
+  .data-table td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: left;
+  }
+  
+/* Estilo de cabeçalho da tabela */
+.data-table th {
+  background-color: #0077B3; /* Cor de fundo para o cabeçalho */
+  font-weight: bold;
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+  color: #fff; /* Cor do texto no cabeçalho */
+}
+
+/* Estilo das células de dados */
+.data-table td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+  color: #333; /* Cor do texto nas células de dados */
+}
+  
+.data-table td.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+  
+.data-table td.actions button {
+  background-color: #004466;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  margin: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+  
+.data-table td.actions button.edit {
+  background-color: #004466;
+  margin-right: 0;
+}
+
+.data-table td.actions button.delete {
+  background-color: #d9534f;
+}
+
+/* Destacar linha ao passar o mouse */
+.data-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.data-table td.actions button:hover {
+  background-color: #003355;
+}
+
+.data-table td.actions button:active {
+  background-color: #002244;
+}
+.no-data-message{
+  text-align: center;
+}

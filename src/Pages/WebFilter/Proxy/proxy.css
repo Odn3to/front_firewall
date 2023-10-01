@@ -1,0 +1,21 @@
+/* Estilos para o balão de alerta */
+.alert-balloon {
+    margin-left: 80px;
+    display: inline-block;
+    align-self: center;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  /* Estilos para o balão de alerta verde */
+  .alert-green {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+  }
+  
+  /* Estilos para o balão de alerta vermelho */
+  .alert-red {
+    background-color: #f44336; /* Vermelho */
+    color: white;
+  }
