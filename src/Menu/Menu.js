@@ -1,17 +1,26 @@
 import React from "react";
 import './Menu.css';
-import { Link } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import redeImage from '../rede.png';
 
 function Menu() {
+  const location = useLocation();
 
   return (
-    <div className="menu">
+    <nav className="menu">
       <img src={redeImage} alt="rede menu"></img>
-      <Link to="/">DHCP</Link>
-      <Link to="/firewall">Firewall</Link>
-      <Link to="/webFilter">WebFilter</Link>
-    </div>
+      <ul>
+        <li className={location.pathname === "/" ? "active" : ""}>
+          <NavLink to="/">DHCP</NavLink>
+        </li>
+        <li className={location.pathname === "/firewall" ? "active" : ""}>
+          <NavLink to="/firewall">Firewall</NavLink>
+        </li>
+        <li className={location.pathname === "/webFilter" ? "active" : ""}>
+          <NavLink to="/webFilter">Web Filter</NavLink>
+        </li>
+      </ul>
+    </nav>
   );
 }
 
