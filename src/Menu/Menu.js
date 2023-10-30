@@ -1,27 +1,71 @@
 import React from "react";
 import './Menu.css';
-import { NavLink, useLocation } from "react-router-dom";
-import redeImage from '../rede.png';
+import { useLocation, useNavigate } from "react-router-dom";
+import { AppstoreOutlined, CloudServerOutlined , FilterOutlined, LogoutOutlined } from '@ant-design/icons';
+import { Menu } from 'antd';
 
-function Menu() {
+function getItem(label, key, icon, children, type) {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  };
+}
+
+const items = [
+  getItem('DHCP', 'dhcp', <CloudServerOutlined  />),
+  getItem('Firewall', 'firewall', <AppstoreOutlined />),
+  getItem('WebFilter', 'webFilter', <FilterOutlined />),
+  getItem('Sair', 'sair', <LogoutOutlined />),
+];
+
+function SideBar() {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const routeToSelect = {
+    '/': 'dhcp',
+    '/firewall': 'firewall',
+    '/webFilter': 'webFilter'
+  };
+
+  const select = routeToSelect[location.pathname] || 'dhcp';
+
+  const onClick = (item) => {
+    switch (item.key) {
+      case 'dhcp':
+        navigate('/');
+        break;
+      case 'firewall':
+        navigate('/firewall');
+        break;
+      case 'webFilter':
+        navigate('/webFilter');
+        break;
+      case 'sair':
+        localStorage.clear();
+        navigate('/login');
+        break;
+      default:
+        break;
+    }
+  }
 
   return (
-    <nav className="menu">
-      <img src={redeImage} alt="rede menu"></img>
-      <ul>
-        <li className={location.pathname === "/" ? "active" : ""}>
-          <NavLink to="/">DHCP</NavLink>
-        </li>
-        <li className={location.pathname === "/firewall" ? "active" : ""}>
-          <NavLink to="/firewall">Firewall</NavLink>
-        </li>
-        <li className={location.pathname === "/webFilter" ? "active" : ""}>
-          <NavLink to="/webFilter">Web Filter</NavLink>
-        </li>
-      </ul>
-    </nav>
+    <Menu
+        className="full-height-menu"
+        theme={'dark'}
+        onClick={(item) => onClick(item)}
+        style={{
+          width: 200,
+        }}
+        selectedKeys={[select]}
+        mode="inline"
+        items={items}
+      />
   );
 }
 
-export default Menu;
+export default SideBar;

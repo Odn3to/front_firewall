@@ -33,7 +33,6 @@ function Filter() {
       axios.get(`http://172.23.58.10/webfilter/search/${searchValue}`)
       .then(response => {
         setLoading(false);
-        console.log(response.data);
         setData_source(response.data.data);
         message.success(response.data.message);
       })
@@ -50,7 +49,6 @@ function Filter() {
       axios.get(`http://172.23.58.10/webfilter/search`)
       .then(response => {
           setLoading(false);
-          console.log(response.data);
           setData_source(response.data.data);
           message.success(response.data.message);
       })

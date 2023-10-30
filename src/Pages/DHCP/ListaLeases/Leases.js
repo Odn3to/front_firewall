@@ -36,12 +36,21 @@ const Leases = () => {
     const [dados, setDados] = useState([]);
 
     const getLeases = () => {
-        axios.get('http://172.23.58.10/api/data')
-            .then(response => {
-                setDados(response.data);
+
+        const token = localStorage.getItem('userToken');
+
+        axios.get('http://172.23.58.10/dhcp/dhcp/data', { headers: {
+            "Authorization": token
+        }
+            }).then(response => {
+                if(response.data && Object.keys(response.data).length !== 0){
+                    setDados(response.data);
+                }
             })
             .catch(error => {
-                console.error(error);
+                if(error.response.data.error == "Invalid token"){
+                    localStorage.clear();
+                }
                 setDados([]);
             });
     }

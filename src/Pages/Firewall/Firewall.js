@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import './Firewall.css';
-import Menu from "../../Menu/Menu";
+import SideBar from "../../Menu/Menu";
 import Regras from "./Regras/Regras";
 import {Button, Spin, message} from 'antd';
 import axios from 'axios';
@@ -61,7 +61,7 @@ function Firewall() {
         <Regras />
       )}
     </div>
-      <Menu />
+      <SideBar />
     </div>
   );
 }

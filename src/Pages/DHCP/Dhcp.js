@@ -3,7 +3,7 @@ import './Dhcp.css';
 import Formulario from './Fomulario/Formulario'
 import Leases from "./ListaLeases/Leases";
 import AlertBalloon from "./AlertStatus/AlertBallon";
-import Menu from "../../Menu/Menu";
+import SideBar from "../../Menu/Menu";
 import axios from "axios";
 
 function Dhcp() {
@@ -14,11 +14,18 @@ function Dhcp() {
   }, [])
 
   const getStatus = () => {
-    axios.get('http://172.23.58.10/api/status')
+    const token = localStorage.getItem('userToken');
+
+    axios.get('http://172.23.58.10/dhcp/dhcp/status', { headers: {
+      "Authorization": token
+    }})
       .then(response => {
-        setStatus({ text: response.data.status.text, class: response.data.status.class });
+        setStatus({ text: response.data.text, class: response.data.class });
       })
       .catch(error => {
+        if(error.response.data.error == "Invalid token"){
+          localStorage.clear();
+        }
           console.error(error);
       });
   }
@@ -34,7 +41,7 @@ function Dhcp() {
         <Formulario />
         <Leases />
       </div>
-      <Menu />
+      <SideBar />
     </div>
   );
 }

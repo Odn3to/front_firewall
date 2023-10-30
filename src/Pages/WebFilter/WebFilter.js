@@ -1,6 +1,6 @@
 import React, {useState, useRef} from "react";
 import './WebFilter.css';
-import Menu from "../../Menu/Menu";
+import SideBar from "../../Menu/Menu";
 import {Button, message } from 'antd';
 import Loading from "../../Componentes/Loading/Loading";
 import Proxy from "./Proxy/Proxy";
@@ -76,7 +76,7 @@ function WebFilter() {
         <Filter/>
       )}
     </div>
-      <Menu />
+      <SideBar />
     </div>
   );
 }
