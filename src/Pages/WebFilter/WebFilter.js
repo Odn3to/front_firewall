@@ -1,24 +1,46 @@
-import React, {useState, useRef} from "react";
+import React, {useState, useRef, useEffect} from "react";
 import './WebFilter.css';
 import SideBar from "../../Menu/Menu";
 import {Button, message } from 'antd';
 import Loading from "../../Componentes/Loading/Loading";
-import Proxy from "./Proxy/Proxy";
 import Filter from "./Filter/filter";
+import AlertBalloon from '../DHCP/AlertStatus/AlertBallon.js'
 import axios from 'axios';
 
 function WebFilter() {
 
-  const [activeTab, setActiveTab] = useState("Proxy");
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState({ text: 'ATIVADO', class: 'alert-green' });
+  const token = localStorage.getItem('userToken');
 
-  const handleTabChange = (tab) => {
-      setActiveTab(tab);
-  };
+  useEffect(() => {
+    getStatus();
+  }, []);
+
+  const getStatus = () => {
+    axios.get('http://172.23.58.10/webfilter/status', { headers: {
+      "Authorization": token
+    }})
+      .then(response => {
+        setStatus(response.data);
+      })
+      .catch(error => {
+          console.error(error.message);
+          if(error.response.data.error == "Invalid token"){
+            localStorage.clear();
+          } else if(error.code == "ERR_BAD_REQUEST"){
+              message.error(error.response.data.error);
+          }else{
+              message.error(error.message);
+          }
+      });
+  }
 
   const applyWebFilter = () => {
     setLoading(true);
-    axios.get(`http://172.23.58.10/webfilter/apply`)
+    axios.get(`http://172.23.58.10/webfilter/apply`, { headers: {
+      "Authorization": token
+    }})
       .then(response => {
         setLoading(false);
         message.success(response.data.message);
@@ -26,7 +48,9 @@ function WebFilter() {
       .catch(error => {
         setLoading(false);
         console.error(error);
-        if(error.code && error.code == "ERR_BAD_REQUEST"){
+        if(error.response.data.error == "Invalid token"){
+          localStorage.clear();
+        } else if(error.code && error.code == "ERR_BAD_REQUEST"){
           if(error.response.data.error){
             message.error(error.response.data.error);
           }else{
@@ -45,6 +69,7 @@ function WebFilter() {
       <div className="right">
       <div className="Header">
         <h1>WebFilter</h1>
+        <AlertBalloon status={status} style={{ boxShadow: '0px 3px 10px rgba(0,0,0,0.1)' }}/>
         <Button
           type="primary"
           className="Button-apply"
@@ -54,27 +79,7 @@ function WebFilter() {
           Aplicar
         </Button>
       </div>
-      
-      <div className="tabs">
-        <button
-          className={activeTab === "Proxy" ? "active" : ""}
-          onClick={() => handleTabChange("Proxy")}
-        >
-          Proxy
-        </button>
-        <button
-          className={activeTab === "Filter" ? "active" : ""}
-          onClick={() => handleTabChange("Filter")}
-        >
-          Filtros
-        </button>
-      </div>
-      {activeTab === "Proxy" && (
-        <Proxy/>
-      )}
-      {activeTab === "Filter" && (
-        <Filter/>
-      )}
+      <Filter/>
     </div>
       <SideBar />
     </div>

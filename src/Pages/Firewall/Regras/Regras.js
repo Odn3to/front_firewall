@@ -20,6 +20,7 @@ function Regras() {
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectData, setSelectData] = useState([]);
   const [searchValue, setSearchValue] = useState('');
+  const token = localStorage.getItem('userToken');
   
   useEffect(() => {
     getRegras();
@@ -63,7 +64,9 @@ function Regras() {
   const getRegras = () => {
     setLoading(true);
 
-    axios.get(`http://172.23.58.10/api/regras/${searchValue}`)
+    axios.get(`http://172.23.58.10/fwr/firewall/regras/${searchValue}`, { headers: {
+      "Authorization": token
+    }})
       .then(response => {
           setLoading(false);
           setData_source(response.data.data);
@@ -116,7 +119,9 @@ function Regras() {
     }
 
     if(selectData.id){
-      axios.put(`http://172.23.58.10/api/regra/${selectData.id}`, data)
+      axios.put(`http://172.23.58.10/fwr/firewall/regra/${selectData.id}`, data, { headers: {
+        "Authorization": token
+      }})
       .then(response => {
           setIsModalOpen(false);
           setLoading(false);
@@ -140,7 +145,9 @@ function Regras() {
       return;
     }
 
-    axios.post('http://172.23.58.10/api/newregra', data)
+    axios.post('http://172.23.58.10/fwr/firewall/newregra', data, { headers: {
+      "Authorization": token
+    }})
       .then(response => {
           setIsModalOpen(false);
           setLoading(false);
@@ -165,7 +172,9 @@ function Regras() {
   const deleteRegras = () => {
     setLoading(true);
 
-    axios.delete(`http://172.23.58.10/api/regra/${selectData.id}`)
+    axios.delete(`http://172.23.58.10/fwr/firewall/regra/${selectData.id}`, { headers: {
+      "Authorization": token
+    }})
       .then(response => {
           closeDelete();
           getRegras();
@@ -204,14 +213,14 @@ function Regras() {
 
   const renderIp = (text, record, tipo) => {
 
-    let origem = record.origem ? `${record.origem}` : '';
-    let porta = record.porta_origem ? ` : ${record.porta_origem}` : '';
-    let protocolo = record.protocolo_origem ? ` ${record.protocolo_origem}` : '';
+    let origem = record.Origem ? `${record.Origem}` : '';
+    let porta = record.Porta_origem ? ` : ${record.Porta_origem}` : '';
+    let protocolo = record.Protocolo_origem ? ` ${record.Protocolo_origem}` : '';
 
-    if(tipo == 'destino'){
-      origem = record.destino ? `${record.destino}` : '';
-      porta = record.porta_destino ? ` : ${record.porta_destino}` : '';
-      protocolo = record.protocolo_destino ? ` ${record.protocolo_destino}` : '';
+    if(tipo == 'Destino'){
+      origem = record.Destino ? `${record.Destino}` : '';
+      porta = record.Porta_destino ? ` : ${record.Porta_destino}` : '';
+      protocolo = record.Protocolo_destino ? ` ${record.Protocolo_destino}` : '';
     }
 
     return (
@@ -219,13 +228,12 @@ function Regras() {
     )
   }
 
-
   const colunas = [
-    { title: "Nome", dataIndex: "nome", align: "center" },
-    { title: "Regra", dataIndex: "acao" , width: 200, align: "center"},
-    { title: "Origem", dataIndex: "origem", align: "center", render: (text, record) => renderIp(text, record, 'origem')},
-    { title: "Destino", dataIndex: "destino", align: "center", render: (text, record) => renderIp(text, record, 'destino') },
-    { title: "NAT", align: "center", dataIndex: "nat" },
+    { title: "Nome", dataIndex: "Nome", align: "center" },
+    { title: "Regra", dataIndex: "Acao" , width: 200, align: "center"},
+    { title: "Origem", dataIndex: "Origem", align: "center", render: (text, record) => renderIp(text, record, 'origem')},
+    { title: "Destino", dataIndex: "Destino", align: "center", render: (text, record) => renderIp(text, record, 'Destino') },
+    { title: "NAT", align: "center", dataIndex: "Nat" },
     { title: "Ações", render: renderActions , width: 150, align: "center"},
   ]
 

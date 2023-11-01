@@ -12,15 +12,15 @@ function ModalRegras({onFinish, formRef, data}) {
           formRef.current = form;
       }
       form.setFieldsValue({
-        name: data ? data.nome : '',
-        action: data ? data.acao : '',
-        origem: data ? data.origem : '',
-        destino: data ? data.destino : '',
-        nat: data ? data.nat : '',
-        protocolo_origem: data ? data.protocolo_origem : '',
-        protocolo_destino: data ? data.protocolo_destino : '',
-        porta_destino: data ? data.porta_destino : '',
-        porta_origem: data ? data.porta_origem : '',
+        name: data ? data.Nome : '',
+        action: data ? data.Acao : '',
+        origem: data ? data.Origem : '',
+        destino: data ? data.Destino : '',
+        nat: data ? data.Nat : '',
+        protocolo_origem: data ? data.Protocolo_origem : '',
+        protocolo_destino: data ? data.Protocolo_destino : '',
+        porta_destino: data ? data.Porta_destino : '',
+        porta_origem: data ? data.Porta_origem : '',
     });
   }, [form, formRef, data]);
      
@@ -30,15 +30,15 @@ function ModalRegras({onFinish, formRef, data}) {
       layout="vertical" 
       onFinish={onFinish}
       initialValues={{
-        name: data ? data.nome : '',
-        action: data ? data.acao : '',
-        origem: data ? data.origem : '',
-        destino: data ? data.destino : '',
-        nat: data ? data.nat : '',
-        protocolo_origem: data ? data.protocolo_origem : '',
-        protocolo_destino: data ? data.protocolo_destino : '',
-        porta_destino: data ? data.porta_destino : '',
-        porta_origem: data ? data.porta_origem : '',
+        name: data ? data.Nome : '',
+        action: data ? data.Acao : '',
+        origem: data ? data.Origem : '',
+        destino: data ? data.Destino : '',
+        nat: data ? data.Nat : '',
+        protocolo_origem: data ? data.Protocolo_origem : '',
+        protocolo_destino: data ? data.Protocolo_destino : '',
+        porta_destino: data ? data.Porta_destino : '',
+        porta_origem: data ? data.Porta_origem : '',
       }}
       >
       <Tabs defaultActiveKey="1" tabPosition="left">

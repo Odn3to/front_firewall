@@ -19,7 +19,7 @@ function ModalDelecao({openModal, onOk, onCancel, selection}) {
       >
         <p>Tem certeza que deseja deletar a Regra:</p>
         <ul>
-            <li key={id}>id: {id} - {selection.nome}</li>
+            <li key={id}>id: {id} - {selection.Nome}</li>
         </ul>
       </Modal>
     </Fragment>

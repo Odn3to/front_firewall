@@ -9,6 +9,7 @@ import Loading from "../../Componentes/Loading/Loading";
 function Firewall() {
   const [activeTab, setActiveTab] = useState("Regras");
   const [loading, setLoading] = useState(false);
+  const token = localStorage.getItem('userToken');
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -16,7 +17,9 @@ function Firewall() {
 
   const apply = () => {
     setLoading(true);
-    axios.post('http://172.23.58.10/api/apply')
+    axios.post('http://172.23.58.10/fwr/firewall/apply', { headers: {
+      "Authorization": token
+    }})
       .then(response => {
           setLoading(false);
           message.success(response.data.message);

@@ -28,9 +28,12 @@ function Filter() {
 
   const getSites = () => {
     setLoading(true);
+    const token = localStorage.getItem('userToken');
 
     if(searchValue != ''){
-      axios.get(`http://172.23.58.10/webfilter/search/${searchValue}`)
+      axios.get(`http://172.23.58.10/webfilter/search/${searchValue}`, { headers: {
+        "Authorization": token
+      }})
       .then(response => {
         setLoading(false);
         setData_source(response.data.data);
@@ -39,14 +42,18 @@ function Filter() {
       .catch(error => {
         setLoading(false);
         console.error(error.message);
-        if(error.code == "ERR_BAD_REQUEST"){
+        if(error.response.data.error == "Invalid token"){
+          localStorage.clear();
+        } else if(error.code == "ERR_BAD_REQUEST"){
           message.error(error.response.data.error);
         }else{
           message.error(error.message);
         }
       }); 
     }else{
-      axios.get(`http://172.23.58.10/webfilter/search`)
+      axios.get(`http://172.23.58.10/webfilter/search`, { headers: {
+        "Authorization": token
+      }})
       .then(response => {
           setLoading(false);
           setData_source(response.data.data);
@@ -55,7 +62,9 @@ function Filter() {
       .catch(error => {
           setLoading(false);
           console.error(error.message);
-          if(error.code && error.code == "ERR_BAD_REQUEST"){
+          if(error.response.data.error == "Invalid token"){
+            localStorage.clear();
+          } else if(error.code && error.code == "ERR_BAD_REQUEST"){
             if(error.response.data.error){
               message.error(error.response.data.error);
             }else{
@@ -114,6 +123,7 @@ function Filter() {
 
   const onFinish = (values) => {
     setLoading(true);
+    const token = localStorage.getItem('userToken');
 
     const data = {  
       nome: values.name,
@@ -121,7 +131,9 @@ function Filter() {
     };
 
     if(selectData.ID){
-      axios.put(`http://172.23.58.10/webfilter/edit/${selectData.ID}`, data)
+      axios.put(`http://172.23.58.10/webfilter/edit/${selectData.ID}`, data, { headers: {
+        "Authorization": token
+      }})
       .then(response => {
         closeModal();
         setLoading(false);
@@ -135,7 +147,9 @@ function Filter() {
         getSites();
         cleanStates();
         console.error(error);
-        if(error.code && error.code == "ERR_BAD_REQUEST"){
+        if(error.response.data.error == "Invalid token"){
+          localStorage.clear();
+        } else if(error.code && error.code == "ERR_BAD_REQUEST"){
           if(error.response.data.error){
             message.error(error.response.data.error);
           }else{
@@ -148,7 +162,9 @@ function Filter() {
       return;
     }
 
-    axios.post('http://172.23.58.10/webfilter/new', data)
+    axios.post('http://172.23.58.10/webfilter/new', data, { headers: {
+      "Authorization": token
+    }})
       .then(response => {
         closeModal();
         setLoading(false);
@@ -162,7 +178,9 @@ function Filter() {
         getSites();
         cleanStates();
         console.error(error);
-        if(error.code && error.code == "ERR_BAD_REQUEST"){
+        if(error.response.data.error == "Invalid token"){
+          localStorage.clear();
+        } else if(error.code && error.code == "ERR_BAD_REQUEST"){
           if(error.response.data.error){
             message.error(error.response.data.error);
           }else{
@@ -177,7 +195,11 @@ function Filter() {
 
   const deleteWebFilter = () => {
     setLoading(true);
-    axios.delete(`http://172.23.58.10/webfilter/delete/${selectData.ID}`)
+    const token = localStorage.getItem('userToken');
+
+    axios.delete(`http://172.23.58.10/webfilter/delete/${selectData.ID}`, { headers: {
+      "Authorization": token
+    }})
       .then(response => {
         closeDelete();
         setLoading(false);
@@ -191,7 +213,9 @@ function Filter() {
         getSites();
         cleanStates();
         console.error(error);
-        if(error.code && error.code == "ERR_BAD_REQUEST"){
+        if(error.response.data.error == "Invalid token"){
+          localStorage.clear();
+        } else if(error.code && error.code == "ERR_BAD_REQUEST"){
           if(error.response.data.error){
             message.error(error.response.data.error);
           }else{

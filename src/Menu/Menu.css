@@ -7,5 +7,4 @@ flex-direction: column;
 .ant-menu-inline .ant-menu-item {
 display: flex;
 align-items: center;
-justify-items: center;
 }
